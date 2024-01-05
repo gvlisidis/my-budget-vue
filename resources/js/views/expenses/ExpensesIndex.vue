@@ -150,6 +150,7 @@
         <div class="mt-6 w-full flex items-center justify-center">
             <TailwindPagination
                 :data="expenses"
+                :limit="10"
                 @pagination-change-page="getExpenses"/>
         </div>
     </div>
@@ -164,10 +165,10 @@ import moment from "moment";
 import {useRouter} from "vue-router";
 
 const expenses = ref([]);
-const selectedYear = ref(new Date().getFullYear());
+const selectedYear = ref(new Date().getFullYear()-2);
 const selectedCategory = ref("all");
 const selectedType = ref("all");
-const selectedMonth = ref(new Date().getMonth());
+const selectedMonth = ref(new Date().getMonth()+13);
 const sortBy = ref("");
 const perPage = ref(30);
 const searchTerm = ref("");
@@ -191,6 +192,8 @@ const months = ref([
     'Nov',
     'Dec',
 ]);
+
+const { categories, getCategories } = useCategories();
 
 onMounted(async () => {
     await getExpenses();
@@ -221,7 +224,6 @@ watch(
         getTotals();
     })
 
-const { categories, getCategories } = useCategories();
 const getExpenses = async (page = 1) => {
     await axios.get(`/api/expenses?page=${page}`, {
         params: {
