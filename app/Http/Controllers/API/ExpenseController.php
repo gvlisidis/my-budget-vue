@@ -21,6 +21,7 @@ class ExpenseController extends Controller
     public function index(ExpenseFilters $filters, Request $request)
     {
         $expenses =  Expense::filter($filters)->paginate($request->perPage);
+
         return ExpenseResource::collection($expenses);
     }
 
