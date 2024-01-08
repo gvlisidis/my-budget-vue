@@ -16,7 +16,9 @@
             </div>
         </div>
     </div>
+
     <div class="mt-10 px-6">
+        <!--    Filters -->
         <div class="mt-2 mb-4 flex justify-between items-center ">
             <div class="h-full flex items-center">
                 <SearchFilter @search="handleSearch"/>
@@ -28,10 +30,13 @@
             </div>
             <PerPageFilter :perPage="perPage" @filter-per-page="handlePerPageFilter" />
         </div>
+        <!--   End Filters -->
+
         <ExpensesTable
             :expenses="expenses"
             @delete-expense="getExpenses"
         />
+        
         <div class="mt-6 w-full flex items-center justify-center">
             <TailwindPagination
                 :data="expenses"
